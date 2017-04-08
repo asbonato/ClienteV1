@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by asbonato on 03/03/17.
  */
 
-public class Cliente implements Serializable {
+public class Cliente implements Serializable, Comparable<Cliente> {
     private int id;
     private String nome;
     private String fone;
@@ -51,6 +51,11 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
+    public String getImagem(){
+        String foto = this.email.replace('@', '_');
+        return foto.replace('.', '_');
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,5 +87,10 @@ public class Cliente implements Serializable {
                 ", fone='" + fone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Cliente cliente) {
+        return this.nome.compareTo(cliente.getNome());
     }
 }

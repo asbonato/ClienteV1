@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_detalhe_cliente"
     android:layout_width="match_parent"
@@ -8,11 +8,77 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="br.usjt.ftce.desmob.clientev1.DetalheClienteActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nome_do_cliente"/>
+        android:padding="8dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:lines="1"
+            android:textStyle="bold"
+            android:id="@+id/txt_cliente_nome"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:id="@+id/cliente_image_view"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:lines="1"
+            android:textStyle="bold"
+            android:text="@string/label_cliente_fone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:lines="1"
+            android:textStyle="bold"
+            android:id="@+id/txt_cliente_fone"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:lines="1"
+            android:textStyle="bold"
+            android:text="@string/label_cliente_email"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:lines="1"
+            android:textStyle="bold"
+            android:id="@+id/txt_cliente_email"/>
+    </LinearLayout>
+
+</LinearLayout>

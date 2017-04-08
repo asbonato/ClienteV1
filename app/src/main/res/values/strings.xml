@@ -2,4 +2,7 @@
     <string name="app_name">ClienteV1</string>
     <string name="nome_busca">nome do cliente</string>
     <string name="botao_busca">Buscar</string>
+    <string name="label_cliente_nome">Nome:</string>
+    <string name="label_cliente_fone">Fone:</string>
+    <string name="label_cliente_email">E-mail:</string>
 </resources>
