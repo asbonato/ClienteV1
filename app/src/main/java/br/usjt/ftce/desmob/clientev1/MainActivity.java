@@ -18,12 +18,12 @@ public class MainActivity extends Activity {
     String chave;
 
     //padrao
-    public static final String SERVIDOR = "http://10.0.2.2:8080";
+    public static final String SERVIDOR = "http://192.168.43.248:8080";
     //casa
     //public static final String SERVIDOR = "http://192.168.0.12:8080";
     //faculdade
     //public static final String SERVIDOR = "http://10.70.9.176:8080";
-    public static final String APLICACAO = "/arqdesis_poetas";
+    public static final String APLICACAO = "/poetas";
     public static final String RECURSO = "/cliente";
     public static final String LISTA = "br.usjt.ftce.desmob.clientev1.lista";
 
@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
         } else {
             Toast toast = Toast.makeText(this, "Rede indisponível", Toast.LENGTH_LONG);
             toast.show();
+            // TODO Carregar clientes do banco
         }
 
         //startActivity(intent);
