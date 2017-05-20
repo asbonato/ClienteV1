@@ -18,8 +18,10 @@ public class ClientesDb {
         dbHelper = new ClientesDbHelper(context);
     }
 
-    public void insereCor(ArrayList<Cliente> clientes){
+    public void insereCliente(ArrayList<Cliente> clientes){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        db.delete(ClientesContract.ClienteEntry.TABLE_NAME, null, null );
 
         for(Cliente cliente:clientes) {
             ContentValues values = new ContentValues();

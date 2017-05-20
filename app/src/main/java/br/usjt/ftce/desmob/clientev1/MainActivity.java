@@ -1,7 +1,9 @@
 package br.usjt.ftce.desmob.clientev1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ public class MainActivity extends Activity {
     ClienteRequester requester;
     Intent intent;
     String chave;
+    Context contexto;
 
     //padrao
     public static final String SERVIDOR = "http://192.168.43.248:8080";
@@ -32,23 +35,27 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textNome = (EditText)findViewById(R.id.buscar_clientes);
+        contexto = this;
+        textNome = (EditText) findViewById(R.id.buscar_clientes);
     }
 
-    public void buscarCliente(View view){
+    public void buscarCliente(View view) {
         intent = new Intent(this, ListarClientesActivity.class);
         chave = textNome.getText().toString();
         requester = new ClienteRequester();
-        if(requester.isConnected(this)){
+        if (requester.isConnected(this)) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        lista = requester.get(SERVIDOR+APLICACAO+RECURSO, chave);
+                        lista = requester.get(SERVIDOR + APLICACAO + RECURSO, chave);
+                        ClientesDb banco = new ClientesDb(contexto);
+                        banco.insereCliente(lista);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Lista: "+lista);
+                    System.out.println("Lista: " + lista);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -61,11 +68,36 @@ public class MainActivity extends Activity {
             }).start();
 
         } else {
-            Toast toast = Toast.makeText(this, "Rede indisponível", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this,
+                    "Rede indisponível. Carregando clientes armazenados localmente.",
+                    Toast.LENGTH_LONG);
             toast.show();
             // TODO Carregar clientes do banco
+            new CarregaClientesDoBanco().execute(ClientesDb.CLIENTE);
+
         }
 
         //startActivity(intent);
+
+    }
+    private class CarregaClientesDoBanco extends AsyncTask<String, Void, ArrayList<Cliente>> {
+
+        @Override
+        protected ArrayList<Cliente> doInBackground(String... strings) {
+            //teste rapido
+            //Cliente teste = new Cliente(0, "Teste sem Conexao", "123456", "teste@conexao.sem");
+            //ArrayList<Cliente> testes = new ArrayList<>();
+            //testes.add(teste);
+            ClientesDb banco = new ClientesDb(contexto); //nao apagar junto com o teste
+            //banco.insereCliente(testes);
+            //fim teste
+            ArrayList<Cliente> clientes = banco.selecionaClientes();
+            return clientes;
+        }
+
+        public void onPostExecute(ArrayList<Cliente> result) {
+            intent.putExtra(LISTA, result);
+            startActivity(intent);
+        }
     }
 }
